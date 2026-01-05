@@ -8,8 +8,20 @@
 	},
 	"r2_buckets": [
 		{
-			"binding": "CLIENTPATCH",
-			"bucket_name": "bluearchive-cafe-clientpatch"
+			"binding": "TABLEBUNDLES",
+			"bucket_name": "bluearchive-cafe-tablebundles"
+		},
+		{
+			"binding": "TABLEBUNDLES_CN_VOICE",
+			"bucket_name": "bluearchive-cafe-tablebundles-cn-voice"
+		},
+		{
+			"binding": "ASSETBUNDLES",
+			"bucket_name": "bluearchive-cafe-assetbundles"
+		},
+		{
+			"binding": "MEDIARESOURCES",
+			"bucket_name": "bluearchive-cafe-mediaresources"
 		}
 	]
 }

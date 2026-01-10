@@ -22,6 +22,10 @@
 		{
 			"binding": "MEDIARESOURCES",
 			"bucket_name": "bluearchive-cafe-mediaresources"
+		},
+		{
+			"binding": "CLIENTPATCH",
+			"bucket_name": "bluearchive-cafe-clientpatch"
 		}
 	]
 }

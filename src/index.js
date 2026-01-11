@@ -49,8 +49,8 @@ export default {
                 }
             } else {
                 const key = ["shared", ...pathparts].join("/");
-                const object = await env.MEDIARESOURCES.get(key);
-                if (object) return new Response(object.body);
+                url.pathname = "/" + key;
+                return env.ASSETS.fetch(new Request(url, request));
             }
         } else if (type === "Android_PatchPack" || type === "iOS_PatchPack") {
             if (ASSET_CATALOG.has(filename)) {

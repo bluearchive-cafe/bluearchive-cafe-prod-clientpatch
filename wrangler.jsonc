@@ -3,6 +3,14 @@
 	"name": "bluearchive-cafe-prod-clientpatch",
 	"main": "src/index.js",
 	"compatibility_date": "2025-12-25",
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
+	"assets": {
+		"directory": "./public",
+		"binding": "ASSETS"
+	},
 	"observability": {
 		"enabled": true
 	},

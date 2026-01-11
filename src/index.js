@@ -13,6 +13,14 @@ export default {
                 return [key, value];
             })
         );
+        const TABLE_CATALOG = new Set([
+            "TableCatalog.hash",
+            "TableCatalog.bytes"
+        ])
+        const MEDIA_CATALOG = new Set([
+            "MediaCatalog.hash",
+            "MediaCatalog.bytes"
+        ]);
         const ASSET_CATALOG = new Set([
             "BundlePackingInfo.hash",
             "BundlePackingInfo.bytes",
@@ -21,28 +29,41 @@ export default {
             "catalog_iOS.hash",
             "catalog_iOS.zip"
         ]);
-        const MEDIA_CATALOG = new Set([
-            "MediaCatalog.hash",
-            "MediaCatalog.bytes"
-        ]);
 
-        if (cookies.dev === "true") {
-            const object = await env.CLIENTPATCH.get(filepath);
-            if (object) return new Response(object.body);
-            return Response.redirect("https://prod-clientpatch.bluearchiveyostar.com/" + filepath, 302);
-        }
-
-        if (type === "TableBundles" && cookies.table === "cn") {
-            const object = await (cookies.voice === "cn" ? env.TABLEBUNDLES_CN_VOICE : env.TABLEBUNDLES).get(filepath);
-            if (object) return new Response(object.body);
-        } else if ((type === "Android_PatchPack" || type === "iOS_PatchPack") && cookies.asset === "cn") {
-            const key = [ASSET_CATALOG.has(filename) ? version : "shared", ...pathparts].join("/");
-            const object = await env.ASSETBUNDLES.get(key);
-            if (object) return new Response(object.body);
-        } else if (type === "MediaResources" && cookies.voice === "cn") {
-            const key = [MEDIA_CATALOG.has(filename) ? version : "shared", ...pathparts].join("/");
-            const object = await env.MEDIARESOURCES.get(key);
-            if (object) return new Response(object.body);
+        if (type === "TableBundles") {
+            if (TABLE_CATALOG.has(filename)) {
+                if (cookies.table === "cn") {
+                    const object = await env.TABLEBUNDLES_CN_VOICE.get(filepath);
+                    if (object) return new Response(object.body);
+                }
+            } else {
+                const object = await env.TABLEBUNDLES_CN_VOICE.get(filepath);
+                if (object) return new Response(object.body);
+            }
+        } else if (type === "MediaResources") {
+            if (MEDIA_CATALOG.has(filename)) {
+                if (cookies.voice === "cn") {
+                    const key = [version, ...pathparts].join("/");
+                    const object = await env.MEDIARESOURCES.get(key);
+                    if (object) return new Response(object.body);
+                }
+            } else {
+                const key = ["shared", ...pathparts].join("/");
+                const object = await env.MEDIARESOURCES.get(key);
+                if (object) return new Response(object.body);
+            }
+        } else if (type === "Android_PatchPack" || type === "iOS_PatchPack") {
+            if (ASSET_CATALOG.has(filename)) {
+                if (cookies.asset === "cn") {
+                    const key = [version, ...pathparts].join("/");
+                    const object = await env.ASSETBUNDLES.get(key);
+                    if (object) return new Response(object.body);
+                }
+            } else {
+                const key = ["shared", ...pathparts].join("/");
+                const object = await env.ASSETBUNDLES.get(key);
+                if (object) return new Response(object.body);
+            }
         }
 
         return Response.redirect("https://prod-clientpatch.bluearchiveyostar.com/" + filepath, 302);

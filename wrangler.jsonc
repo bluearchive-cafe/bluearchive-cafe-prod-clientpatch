@@ -8,29 +8,12 @@
 		"global_fetch_strictly_public"
 	],
 	"assets": {
-		"directory": "./public",
-		"binding": "ASSETS"
+		"directory": "./public"
 	},
 	"observability": {
 		"enabled": true
 	},
 	"r2_buckets": [
-		{
-			"binding": "TABLEBUNDLES",
-			"bucket_name": "bluearchive-cafe-tablebundles"
-		},
-		{
-			"binding": "TABLEBUNDLES_CN_VOICE",
-			"bucket_name": "bluearchive-cafe-tablebundles-cn-voice"
-		},
-		{
-			"binding": "ASSETBUNDLES",
-			"bucket_name": "bluearchive-cafe-assetbundles"
-		},
-		{
-			"binding": "MEDIARESOURCES",
-			"bucket_name": "bluearchive-cafe-mediaresources"
-		},
 		{
 			"binding": "CLIENTPATCH",
 			"bucket_name": "bluearchive-cafe-clientpatch"
